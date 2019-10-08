@@ -8,26 +8,44 @@
 
     <meta name="author" content="Neeraj Aggarwal" />
     <meta name="description" content="Gather IP addresses using WebRTC." />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
+
   <body>
     <h1>webrtc-ip</h1>
+
+    <p>
+      A website that uses WebRTC to determine IP addresses. Check out the source
+      code on <a href="https://github.com/n3a9/webrtc-ip">Github</a>.
+    </p>
+
     <h4>Your local IP addresses:</h4>
+
     <ul>
       <li>Searching ...</li>
     </ul>
+
     <h4>Your public IP addresses:</h4>
     <ul>
       <li>Searching ...</li>
     </ul>
+
     <h4>Your IPv6 addresses:</h4>
     <ul>
       <li>Searching ...</li>
     </ul>
+
     <iframe
       id="iframe"
       sandbox="allow-same-origin"
       style="display: none"
     ></iframe>
+
     <script type="text/javascript" src="ipConstants.js"></script>
     <script type="text/javascript" src="ipFetch.js"></script>
   </body>

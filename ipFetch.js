@@ -6,8 +6,8 @@ fetchIPs = () => {
     window.mozRTCPeerConnection ||
     window.webkitRTCPeerConnection;
 
-  // Run in iFrame if webrtc is blocked
   if (!RTCPeerConnection) {
+    if (debug) console.log("WebRTC connection blocked! Attempting in iFrame.");
     RTCPeerConnection =
       iframe.contentWindow.RTCPeerConnection ||
       iframe.contentWindow.mozRTCPeerConnection ||
@@ -52,27 +52,24 @@ fetchIPs = () => {
     result => {
       if (debug) console.log("SDP offer successful. Result: ", result);
       rtc.setLocalDescription(result);
-      var lines = rtc.localDescription.sdp.split("\n");
+      const lines = rtc.localDescription.sdp.split("\n");
       lines.forEach(line => {
         if (~line.indexOf("a=candidate") || ~line.indexOf("c="))
           parseCandidate(line);
       });
     },
     () => {
-      if (debug) console.warn("SDP offer failed");
+      if (debug) console.warn("SDP offer failed.");
     }
   );
 
   display = () => {
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       document.getElementsByTagName("li")[i].innerHTML = ips[i]
         ? ips[i]
-        : "Not found!";
-      if (isLocal(ips[i])) {
-        var li = document.createElement("p");
-        li.textContent = "Anonymized IP address!";
-        document.getElementsByTagName("ul")[i].appendChild(li);
-      }
+        : "IP not found!";
+      if (isLocal(ips[i]))
+        document.getElementsByTagName("ul")[i].appendChild(anon);
     }
   };
 };

@@ -1,6 +1,6 @@
-const debug = true;
+const debug = false;
 
-const iceServer = "stun:stun.l.google.com:19302?transport=udp"
+const iceServer = "stun:stun.l.google.com:19302?transport=udp";
 
 const ipRegex = {
   local: /^(192\.168\.|169\.254\.|10\.|172\.(1[6-9]|2\d|3[01]))/,
@@ -9,5 +9,13 @@ const ipRegex = {
 };
 
 isLocal = address => {
-  return address && address.includes(".local")
-}
+  return address && address.includes(".local");
+};
+
+var readme = document.createElement("a");
+readme.href = "https://github.com/n3a9/webrtc-ip";
+readme.textContent = "README";
+
+var anon = document.createElement("p");
+anon.textContent = "Anonymized IP address! To fix, please look at the ";
+anon.append(readme);
