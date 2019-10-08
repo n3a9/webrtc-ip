@@ -23,15 +23,25 @@ fetchIPs = () => {
 
   parseCandidate = candidate => {
     if (debug) console.log("Parsing candidate: ", candidate);
+
+    detectAnonymize(candidate);
+
     const match = ipRegex.public.exec(candidate);
     if (match) {
-      var address = match[0];
+      const address = match[0];
 
       if (address.match(ipRegex.local)) ips[0] = address;
       else if (address.match(ipRegex.ipv6)) ips[2] = address;
       else ips[1] = address;
+
       display();
     }
+  };
+
+  detectAnonymize = candidate => {
+    const address = candidate.split(" ")[4];
+    const type = candidate.split(" ")[7];
+    if (type === "host" && isLocal(address)) ips[0] = address;
   };
 
   rtc.onicecandidate = ice => {
@@ -44,7 +54,8 @@ fetchIPs = () => {
       rtc.setLocalDescription(result);
       var lines = rtc.localDescription.sdp.split("\n");
       lines.forEach(line => {
-        if (line.indexOf("a=candidate:") === 0) parseCandidate(line);
+        if (~line.indexOf("a=candidate") || ~line.indexOf("c="))
+          parseCandidate(line);
       });
     },
     () => {
@@ -56,7 +67,12 @@ fetchIPs = () => {
     for (var i = 0; i < 3; i++) {
       document.getElementsByTagName("li")[i].innerHTML = ips[i]
         ? ips[i]
-        : "Not found";
+        : "Not found!";
+      if (isLocal(ips[i])) {
+        var li = document.createElement("p");
+        li.textContent = "Anonymized IP address!";
+        document.getElementsByTagName("ul")[i].appendChild(li);
+      }
     }
   };
 };
