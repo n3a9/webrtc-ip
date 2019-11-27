@@ -8,14 +8,10 @@ const ipRegex = {
   ipv6: /:/
 };
 
-isLocal = address => {
-  return address && address.includes(".local");
-};
-
-var readme = document.createElement("a");
+let readme = document.createElement("a");
 readme.href = "https://github.com/n3a9/webrtc-ip";
 readme.textContent = "README";
 
-var anon = document.createElement("p");
-anon.textContent = "Anonymized IP address! To fix, please look at the ";
-anon.append(readme);
+let anonMessage = document.createElement("p");
+anonMessage.textContent = "Anonymized IP address! To fix, please look at the ";
+anonMessage.append(readme);

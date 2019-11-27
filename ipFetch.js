@@ -41,7 +41,7 @@ fetchIPs = () => {
   detectAnonymize = candidate => {
     const address = candidate.split(" ")[4];
     const type = candidate.split(" ")[7];
-    if (type === "host" && isLocal(address)) ips[0] = address;
+    if (type === "host" && isAnonymized(address)) ips[0] = address;
   };
 
   rtc.onicecandidate = ice => {
@@ -68,10 +68,14 @@ fetchIPs = () => {
       document.getElementsByTagName("li")[i].innerHTML = ips[i]
         ? ips[i]
         : "IP not found!";
-      if (isLocal(ips[i]))
-        document.getElementsByTagName("ul")[i].appendChild(anon);
+      if (isAnonymized(ips[i]))
+        document.getElementsByTagName("ul")[i].appendChild(anonMessage);
     }
   };
+};
+
+isAnonymized = address => {
+  return address && address.includes(".local");
 };
 
 fetchIPs();
