@@ -1,5 +1,3 @@
-const debug = false;
-
 const iceServer = "stun:stun.l.google.com:19302?transport=udp";
 
 const ipRegex = {

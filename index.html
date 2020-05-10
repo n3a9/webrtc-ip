@@ -1,1 +1,64 @@
-<!DOCTYPE html><html><head><title>webrtc-ip</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="author" content="Neeraj Aggarwal" /><meta name="description" content="Detect IP addresses using WebRTC." /><link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet" /><style>body{ font-family:"IBM Plex Sans", sans-serif; margin:0 auto; max-width:550px; padding:0 2em; line-height:1.6;} h4, a{ color:#3a7ee4; text-decoration:underline;} p{ color:#6b6b6b;} em{ color:#c91212; font-style:normal;} li{ list-style:none;} </style></head><body><h1>webrtc-ip</h1><p>A website that uses WebRTC to determine IP addresses. Check out the source code on <a href="https://github.com/n3a9/webrtc-ip">Github</a>. </p><h4>Your local IP address</h4><ul><li>Searching ...</li></ul><h4>Your public IP address</h4><ul><li>Searching ...</li></ul><iframe id="iframe" sandbox="allow-same-origin" style="display:none"></iframe><script type="text/javascript" src="ipConstants.js"></script><script type="text/javascript" src="ipFetch.js"></script></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>webrtc-ip</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Neeraj Aggarwal" />
+  <meta name="description" content="Detect IP addresses using WebRTC." />
+
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      margin: 0 auto;
+      max-width: 550px;
+      padding: 0 2em;
+      line-height: 1.6;
+    }
+
+    h4,
+    a {
+      color: #3a7ee4;
+      text-decoration: underline;
+    }
+
+    p {
+      color: #6b6b6b;
+    }
+
+    em {
+      color: #c91212;
+      font-style: normal;
+    }
+
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>webrtc-ip</h1>
+  <p>A website that uses WebRTC to determine IP addresses. Check out the source code on <a
+      href="https://github.com/n3a9/webrtc-ip">Github</a>. </p>
+
+  <h4>Your local IP address</h4>
+  <ul>
+    <li>Searching ...</li>
+  </ul>
+
+  <h4>Your public IP address</h4>
+  <ul>
+    <li>Searching ...</li>
+  </ul>
+
+  <iframe id="iframe" sandbox="allow-same-origin" style="display:none"></iframe>
+
+  <script type="text/javascript" src="ipConstants.js"></script>
+  <script type="text/javascript" src="ipFetch.js"></script>
+</body>
+
+</html>

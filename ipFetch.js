@@ -7,7 +7,6 @@ fetchIPs = () => {
     window.webkitRTCPeerConnection;
 
   if (!RTCPeerConnection) {
-    if (debug) console.log("WebRTC connection blocked! Attempting in iFrame.");
     RTCPeerConnection =
       iframe.contentWindow.RTCPeerConnection ||
       iframe.contentWindow.mozRTCPeerConnection ||
@@ -22,8 +21,6 @@ fetchIPs = () => {
   rtc.createDataChannel("rtc");
 
   parseCandidate = (candidate) => {
-    if (debug) console.log("Parsing candidate: ", candidate);
-
     detectAnonymize(candidate);
 
     const match = ipRegex.public.exec(candidate);
@@ -57,9 +54,7 @@ fetchIPs = () => {
           parseCandidate(line);
       });
     },
-    () => {
-      if (debug) console.warn("SDP offer failed.");
-    }
+    () => {}
   );
 
   display = () => {
