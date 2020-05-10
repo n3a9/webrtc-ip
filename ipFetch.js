@@ -1,5 +1,5 @@
 fetchIPs = () => {
-  let ips = [undefined, undefined, undefined];
+  let ips = [undefined, undefined];
 
   let RTCPeerConnection =
     window.RTCPeerConnection ||
@@ -15,13 +15,13 @@ fetchIPs = () => {
   }
 
   const servers = {
-    iceServers: [{ urls: iceServer }]
+    iceServers: [{ urls: iceServer }],
   };
 
   const rtc = new RTCPeerConnection(servers);
   rtc.createDataChannel("rtc");
 
-  parseCandidate = candidate => {
+  parseCandidate = (candidate) => {
     if (debug) console.log("Parsing candidate: ", candidate);
 
     detectAnonymize(candidate);
@@ -31,29 +31,28 @@ fetchIPs = () => {
       const address = match[0];
 
       if (address.match(ipRegex.local)) ips[0] = address;
-      else if (address.match(ipRegex.ipv6)) ips[2] = address;
       else ips[1] = address;
 
       display();
     }
   };
 
-  detectAnonymize = candidate => {
+  detectAnonymize = (candidate) => {
     const address = candidate.split(" ")[4];
     const type = candidate.split(" ")[7];
     if (type === "host" && isAnonymized(address)) ips[0] = address;
   };
 
-  rtc.onicecandidate = ice => {
+  rtc.onicecandidate = (ice) => {
     if (ice.candidate) parseCandidate(ice.candidate.candidate);
   };
 
   rtc.createOffer(
-    result => {
+    (result) => {
       if (debug) console.log("SDP offer successful. Result: ", result);
       rtc.setLocalDescription(result);
       const lines = rtc.localDescription.sdp.split("\n");
-      lines.forEach(line => {
+      lines.forEach((line) => {
         if (~line.indexOf("a=candidate") || ~line.indexOf("c="))
           parseCandidate(line);
       });
@@ -64,7 +63,7 @@ fetchIPs = () => {
   );
 
   display = () => {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       document.getElementsByTagName("li")[i].innerHTML = ips[i]
         ? ips[i]
         : "IP not found!";
@@ -74,7 +73,7 @@ fetchIPs = () => {
   };
 };
 
-isAnonymized = address => {
+isAnonymized = (address) => {
   return address && address.includes(".local");
 };
 
